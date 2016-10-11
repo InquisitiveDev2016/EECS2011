@@ -1,129 +1,100 @@
-import java.util.ArrayList;
+/**********************************************************
+ * EECS2011: Fundamentals of Data Structures,  Fall 2016
+ * Assignment 2, Problem 3: AugmentedStack.java
+ * Student Name: Vishal Malik	
+ * Student cse account: vishal27
+ * Student ID number: 214537146
+ **********************************************************/
 /**
- * The purpose of this class is to squeeze an array of ints.
- * 
- * The main method runs some tests.
- * 
+ * This is an edited stack which return minimum element of stack in O(1) time.
  * @author Vishal
- * 
  */
-public class ArraySqueeze {
-	/**
-	 * squeeze() takes an array of ints. On completion the array contains the
-	 * same numbers, but wherever the array had two or more consecutive
-	 * duplicate numbers, they are replaced by one copy of the number. Hence,
-	 * after squeeze() is done, no two consecutive numbers in the array are the
-	 * same.
-	 * 
-	 * Any unused elements at the end of the array are set to -1.
-	 * 
-	 * For example, if the input array is [ 5 , 7 , 7 , 9 , 9 ,  16 , 1 , 1 ], it
-	 * reads [ 5 , 7 , 9 , 16 , 1 , -1 , -1 , -1 ] after squeeze() completes.
-	 * 
-	 * @param ints
-	 *            the input array.
-	 */
-	public static void squeeze(int[] ints) {
+import java.util.Stack;
+public class AugmentedStack{
 
-		// Ours takes linear time and is 9 lines long,
-		// not counting blank/comment lines or lines already present in this file.
-        // Compressing Array of ints 
-		int[] compressedInts = new int[ints.length];       // Initializing compressedInts array with length as same as ints
-		compressedInts[0] = ints[0];                       // Assigning compressedInts first value to first value of ints
-		int m = 1;                                         // Index Iterator for CompressedInts. It is used to add values in CompressedInts array at index of m.
-		int pointer = 0;                                   // This pointer which keep track of All interested values or say useful values
-		for (int i = 1; i < ints.length; ++i) {            // Iterate through ints 
-			if (ints[i] != ints[i - 1]) {                  // checks for unique values in ints
-				compressedInts[m] = ints[i];               // assign those values to compressedInts using m as index iterator for compressedInts
-				m++;                                       // after adding values it will move m
-				pointer = m-1;                             // keeping track of useful elements in compressedInts
-			}
-		}
-		for(int j = 0; j<compressedInts.length; j++){      // Iterate through newly made compressedInts assign all values after useful values to -1
-			if(j > pointer)
-				compressedInts[j]=-1;
 
-		}
-		for(int z = 0; z<ints.length; z++){                // Iterate through ints and assign all compressedInts values to ints
-			ints[z] = compressedInts[z];
-		}
+	private Stack<Double> stack;
+	private Stack<Double> minStack; 
+	public AugmentedStack(){
+		this.stack= new Stack<Double>();
+		this.minStack= new Stack<Double>();
 	}
 	/**
-	 * main() runs test cases on your squeeze() method. Prints summary
-	 * information on basic operations and halts with an error (and a stack
-	 * trace) if any of the tests fail.
+	 * This is an method which adds elements into stack and minStack. it initially adds the first value of element as it is then checks for 
+	 * other values if the values are smaller then the minStack.peek() element,if it is then it will add that element into minStack. So that
+	 *  minStack only have useful element instead of multiple copies of same element over an over again.
+	 * @param element
 	 */
+	public void push(double element){	
+		stack.push(element);
+		if (minStack.empty() || element <= minStack.peek()){
+			minStack.push(element);
+		}
+	}
 
+	/**
+	 * This method remove the recent  element added into stack. This is a special method since it also remove elements to MinStack as well.
+	 * to add initially it checks whether the stack.peek() is same to the minStack or not, if its similar then it pops the minStack element
+	 *   
+	 * @return stack.pop(); + minStack.pop();
+	 */
+	public Double pop(){
+		if(stack.isEmpty()){
+			return null;
+		}
+		double value = stack.peek();
+		if(value == minStack.peek()){
+			minStack.pop();
+		}
+		return stack.pop();
+	}
+	/**
+	 * This is the method which return top element of stack
+	 * @return stack.peek();
+	 */
+	public Double top(){
+		return this.stack.peek();
+	}
+	/**
+	 * This is a method which return the minimum value of stack by popping value from minStack.
+	 * @return
+	 */
+	public Double getMin(){
+		if(minStack.isEmpty()){
+			return null;
+		}else{
+			return this.minStack.pop();
+		}
+	}
+	@Override
+	public String toString() {
+		return "Augmented Stack = "+ stack+"\n"+/*"MinStack = "+minStack+*/"\n" +"Minimum = " + getMin();
+	}
+	/**
+	 * This is main method which runs some test on Augmented Stack.
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		String result;
 
-		System.out.println("Let's squeeze arrays!\n");
+		//Test Cases
 
-		int[] test1 = {3, 7, 7, 7, 4, 5, 5, 2, 0, 8, 8, 8, 8, 5};
-		System.out.println("squeezing " + TestHelper.stringInts(test1) + ":");
-		squeeze(test1);
-		result = TestHelper.stringInts(test1);
-		System.out.println(result + "\n");
-		TestHelper.verify(result.equals(
-				"[ 3 , 7 , 4 , 5 , 2 , 0 , 8 , 5 , -1 , -1 , -1 , -1 , -1 , -1 ]"),
-				"BAD SQEEZE!!!  No cookie.");
+		AugmentedStack a  = new AugmentedStack();
+		a.push(90);
+		a.push(9);
+		a.push(100);
+		a.push(3);
+		a.push(28);
+		a.push(18283);
+		a.push(-81);
+		a.push(89);
+		a.push(-11);  
 
-		int[] test2 = {6, 6, 6, 6, 6, 3, 6, 3, 6, 3, 3, 3, 3, 3, 3};
-		System.out.println("squeezing " + TestHelper.stringInts(test2) + ":");
-		squeeze(test2);
-		result = TestHelper.stringInts(test2);
-		System.out.println(result + "\n");
-		TestHelper.verify(result.equals(
-				"[ 6 , 3 , 6 , 3 , 6 , 3 , -1 , -1 , -1 , -1 , -1 , -1 , -1 , -1 , -1 ]"),
-				"BAD SQEEZE!!!  No cookie.");
+		a.pop();
+		a.pop();
+		a.pop();
 
-		int[] test3 = {4, 4, 4, 4, 4};
-		System.out.println("squeezing " + TestHelper.stringInts(test3) + ":");
-		squeeze(test3);
-		result = TestHelper.stringInts(test3);
-		System.out.println(result + "\n");
-		TestHelper.verify(result.equals("[ 4 , -1 , -1 , -1 , -1 ]"),
-				"BAD SQEEZE!!!  No cookie.");
+		System.out.println(a);
 
-		int[] test4 = {0, 1, 2, 3, 4, 5, 6};
-		System.out.println("squeezing " + TestHelper.stringInts(test4) + ":");
-		squeeze(test4);
-		result = TestHelper.stringInts(test4);
-		System.out.println(result + "\n");
-		TestHelper.verify(result.equals("[ 0 , 1 , 2 , 3 , 4 , 5 , 6 ]"),
-				"BAD SQEEZE!!!  No cookie.");
 
-		int[] test5 = {6, 7, 1, 5, 5, 5, 7, 8, 9, 9, 9, 2, 3, 3, 9, 9};
-		System.out.println("squeezing " + TestHelper.stringInts(test5) + ":");
-		squeeze(test5);
-		result = TestHelper.stringInts(test5);
-		System.out.println(result + "\n");
-		TestHelper.verify(result.equals("[ 6 , 7 , 1 , 5 , 7 , 8 , 9 , 2 , 3 , 9 , -1 , -1 , -1 , -1 , -1 , -1 ]"),
-				"BAD SQEEZE!!!  No cookie.");
-
-		int[] test6 = {9, 9, 9, 8, 8, 8, 7, 7, 7, 6, 6, 6, 5, 5, 5};
-		System.out.println("squeezing " + TestHelper.stringInts(test6) + ":");
-		squeeze(test6);
-		result = TestHelper.stringInts(test6);
-		System.out.println(result + "\n");
-		TestHelper.verify(result.equals("[ 9 , 8 , 7 , 6 , 5 , -1 , -1 , -1 , -1 , -1 , -1 , -1 , -1 , -1 , -1 ]"),
-				"BAD SQEEZE!!!  No cookie.");
-
-		int[] test7 = {9, 9, 9, 8, 8, 8, 1, 1, 1, 6, 6, 6, 5, 5, 5};
-		System.out.println("squeezing " + TestHelper.stringInts(test7) + ":");
-		squeeze(test7);
-		result = TestHelper.stringInts(test7);
-		System.out.println(result + "\n");
-		TestHelper.verify(result.equals("[ 9 , 8 , 1 , 6 , 5 , -1 , -1 , -1 , -1 , -1 , -1 , -1 , -1 , -1 , -1 ]"),
-				"BAD SQEEZE!!!  No cookie.");
-		
-		int[] test8 = {-1, -1, -1, 8, 8, 8, 1, 1, 1, 6, 6, 6, 5, 5, 5};
-		System.out.println("squeezing " + TestHelper.stringInts(test8) + ":");
-		squeeze(test8);
-		result = TestHelper.stringInts(test8);
-		System.out.println(result + "\n");
-		TestHelper.verify(result.equals("[ -1 , 8 , 1 , 6 , 5 , -1 , -1 , -1 , -1 , -1 , -1 , -1 , -1 , -1 , -1 ]"),
-				"BAD SQEEZE!!!  No cookie.");
-		
 	}
 }
