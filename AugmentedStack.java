@@ -10,38 +10,38 @@
  * @author vishal
  */
 import java.util.Stack;
-public class AugmentedStack{
+public class AugmentedStack<E extends Comparable<? super E>>{
 
-	private Stack<Double> stack;
-	private Stack<Double> minStack; 
+	private Stack<E> stack;
+	private Stack<E> minStack; 
 	public AugmentedStack(){
-		this.stack= new Stack<Double>();
-		this.minStack= new Stack<Double>();
+		this.stack= new Stack<E>();
+		this.minStack= new Stack<E>();
 	}
 	/**
-	 * This is an method which adds elements into stack and minstack. it initially adds the first value of element as it is then checks for 
+	 * This is an method which adds elements into stack and minStack. it initially adds the first value of element as it is then checks for 
 	 * other values if the values are smaller then the minStack.peek() element,if it is then it will add that element into minStack. So that
 	 *  minStack only have useful element instead of multiple copies of same element over an over again.
 	 * @param element
 	 */
-	public void push(double element){	
+	public void push(E element){	
 		stack.push(element);
-		if (minStack.empty() || element <= minStack.peek()){
+		if (minStack.empty() || element.compareTo(minStack.peek()) ==-1){
 		      minStack.push(element);
 		  }
 	}
 	/**
 	 * This method remove the recent  element added into stack. This is a special method since it also remove elements to MinStack as well.
-	 * to add initially it checks wheather the stack.peek() is same to the minStack or not, if its similar then it pops the minStack element
+	 * to add initially it checks whether the stack.peek() is same to the minStack or not, if its similar then it pops the minStack element
 	 *   
 	 * @return stack.pop(); + minStack.pop();
 	 */
 	
-	public Double pop(){
+	public E pop(){
 		if(stack.isEmpty()){
 			return null;
 		}
-	    double value = stack.peek();
+	    E value = stack.peek();
 		if(value == minStack.peek()){
 			minStack.pop();
 		}
@@ -51,14 +51,14 @@ public class AugmentedStack{
 	 * This is the method which return top element of stack
 	 * @return stack.peek();
 	 */
-	public Double top(){
+	public E top(){
 		return this.stack.peek();
 	}
 	/**
-	 * This is a method which return the minimum value of stack by poping value from minStack.
+	 * This is a method which return the minimum value of stack by popping value from minStack.
 	 * @return
 	 */
-	public Double getMin(){
+	public E getMin(){
 		if(minStack.isEmpty()){
 			return null;
 		}else{
@@ -76,7 +76,7 @@ public class AugmentedStack{
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//Test Cases
-		AugmentedStack a  = new AugmentedStack();
+		AugmentedStack<Integer> a  = new AugmentedStack<>();
 		a.push(90);
 		a.push(9);
 		a.push(100);
@@ -88,10 +88,19 @@ public class AugmentedStack{
 		a.push(-11);  
 		
 		
-		/*a.pop();
+		  /*a.pop();
 		  a.pop();
 		  a.pop();
-		*/
+		  a.pop();
+		  a.pop();
+		  a.pop();
+		  a.pop();
+		  a.pop();
+		  a.pop();
+		  a.pop();
+		  a.pop();
+		  a.pop();
+		  */
 		System.out.println(a);
 	}
 }
