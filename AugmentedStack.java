@@ -1,10 +1,4 @@
-/**********************************************************
- * EECS2011: Fundamentals of Data Structures,  Fall 2016
- * Assignment 2, Problem 3: AugmentedStack.java
- * Student Name: Vishal Malik	
- * Student cse account: vishal27
- * Student ID number: 214537146
- **********************************************************/
+
 /**
  * This is an edited stack which return minimum element of stack in O(1) time.
  * @author vishal
