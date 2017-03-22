@@ -1,10 +1,6 @@
-/**********************************************************
- * EECS2011: Fundamentals of Data Structures,  Fall 2016
- * Assignment 2, Problem 1: Coins.java
- * Student Name: Vishal Malik	
- * Student cse account: vishal27
- * Student ID number: 214537146
- **********************************************************/
+/**
+@author vishal
+**/
 import java.util.Scanner;
 public class Coins {
 	//Initializing denominations of coins
