@@ -1,13 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-/**********************************************************
- * EECS2011: Fundamentals of Data Structures,  Fall 2016
- * Assignment 3, Problem 1: CardShuffle.java
- * Student Name: Vishal Malik	
- * Student cse account: vishal27
- * Student ID number: 214537146
- **********************************************************/
 /**
  * Describe a method for performing a card shuffle of a list of 2n elements,
  * by converting it into two lists. A card shuffle is a permutation where a list L is cut into two lists,
