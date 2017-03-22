@@ -20,7 +20,7 @@ public class AugmentedStack<E extends Comparable<? super E>>{
 	 */
 	public void push(E element){	
 		stack.push(element);
-		if (minStack.empty() || element.compareTo(minStack.peek()) ==-1){
+		if (minStack.empty() || element.compareTo(minStack.peek()) <=0){
 		      minStack.push(element);
 		  }
 	}
