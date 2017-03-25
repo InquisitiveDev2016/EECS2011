@@ -1,4 +1,5 @@
 /**
+* This class return all possible number and combinations of change given.
 @author vishal
 **/
 import java.util.Scanner;
