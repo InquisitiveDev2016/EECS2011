@@ -1,6 +1,7 @@
 
 import java.util.*;
-
+// Sorting of List without accessing Index.
+// Solution is Essentially Quick Sort by constructing a InputStream.
 public class sort {
 	@SuppressWarnings("resource")
 	public static String sorting(String list) {
@@ -17,8 +18,8 @@ public class sort {
 			middle = scan.nextInt();
 			// Get all the rest elements and assign to number
 			while (scan.hasNextInt()) {
-				number = scan.nextInt();  			 	// here it assign the next element in the string to number 
-				if (number > middle) {     				// comprasion of first and second element of List
+				number = scan.nextInt();  			// here it assign the next element in the string to number 
+				if (number > middle) {     			// comprasion of first and second element of List
 					right += number.toString() + " ";	// Assign the element here if its greater then the pivot
 				} else {
 					left += number.toString() + " "; 	// Assign the element here if its less then the pivot 
